@@ -29,7 +29,8 @@ public class GameEngine {
                     action.run();
                     Thread.sleep(fps);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();  // Restore interrupted status
+                    break;  // Exit the loop on interruption
                 }
             }
         });
@@ -43,7 +44,8 @@ public class GameEngine {
                     action.run();
                     Thread.sleep(fps);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    break;
                 }
             }
         });
@@ -53,13 +55,13 @@ public class GameEngine {
     private void timeLoop(Runnable action) {
         timeThread = new Thread(() -> {
             try {
-                while (true) {
+                while (!timeThread.isInterrupted()) {
                     onAction.onTime(time++);
                     action.run();
                     Thread.sleep(1);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         });
         timeThread.start();
@@ -81,6 +83,15 @@ public class GameEngine {
             updateThread.interrupt();
             physicsThread.interrupt();
             timeThread.interrupt();
+
+            try {
+                updateThread.join(); // Wait for the thread to finish
+                physicsThread.join();
+                timeThread.join();
+            } catch (InterruptedException e) {
+                System.err.println("Interrupted while waiting for threads to finish: " + e.getMessage());
+                Thread.currentThread().interrupt();  // Restore the interrupted status
+            }
         }
     }
 

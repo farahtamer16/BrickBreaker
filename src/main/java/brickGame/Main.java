@@ -15,7 +15,24 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +42,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 public class Main extends Application implements EventHandler<KeyEvent>, GameEngine.OnAction {
 
+    // Level characteristics for each difficulty level
+    private final LevelInfo LEVEL_EASY = new LevelInfo(30, 1.5, 3);
+    private final LevelInfo LEVEL_MEDIUM = new LevelInfo(50, 2.5, 2);
+    private final LevelInfo LEVEL_HARD = new LevelInfo(80, 4.0, 1);
+
+    private LevelInfo currentLevelInfo;
+
+    private static final int LEVEL_EASY_BLOCKS = 30;
+    private static final double LEVEL_EASY_BALL_SPEED = 1.5;
+    private static final int LEVEL_EASY_HEARTS = 3;
+
+    private static final int LEVEL_MEDIUM_BLOCKS = 50;
+    private static final double LEVEL_MEDIUM_BALL_SPEED = 2.5;
+    private static final int LEVEL_MEDIUM_HEARTS = 2;
+
+    private static final int LEVEL_HARD_BLOCKS = 80;
+    private static final double LEVEL_HARD_BALL_SPEED = 4.0;
+    private static final int LEVEL_HARD_HEARTS = 1;
     private int level = 0;
 
     private double xBreak = 0.0f;
@@ -96,6 +131,18 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
     Button load    = null;
     Button newGame = null;
 
+    private class LevelInfo {
+        int blockCount;
+        double ballSpeed;
+        int hearts;
+
+        public LevelInfo(int blockCount, double ballSpeed, int hearts) {
+            this.blockCount = blockCount;
+            this.ballSpeed = ballSpeed;
+            this.hearts = hearts;
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -163,11 +210,46 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
 
         load.setVisible(false);
         newGame.setVisible(false);
+
+        // Set level characteristics based on the current level
+        switch (currentLevel) {
+            case 1:
+                currentLevelInfo = LEVEL_EASY;
+                break;
+            case 2:
+                currentLevelInfo = LEVEL_MEDIUM;
+                break;
+            case 3:
+                currentLevelInfo = LEVEL_HARD;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid level: " + currentLevel);
+        }
+
+        heart = currentLevelInfo.hearts;
     }
 
     private void initBoard() {
-        int totalRows = 4;
-        int blocksPerRow = currentLevel + 1;
+        int totalRows;
+        int blocksPerRow;
+
+        // Set the number of rows and blocks per row based on the current level
+        switch (currentLevel) {
+            case 1:
+                totalRows = 3;
+                blocksPerRow = 10;
+                break;
+            case 2:
+                totalRows = 4;
+                blocksPerRow = 13;
+                break;
+            case 3:
+                totalRows = 5;
+                blocksPerRow = 16;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid level: " + currentLevel);
+        }
 
         for (int i = 0; i < totalRows; i++) {
             for (int j = 0; j < blocksPerRow; j++) {
@@ -251,13 +333,28 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
     }
 
 
-    private void initBall() {
-        Random random = new Random();
-        xBall = random.nextInt(sceneWidth) + 1;
-        yBall = random.nextInt(sceneHeigt - 200) + ((level + 1) * Block.getHeight()) + 15;
-        ball = new Circle();
-        ball.setRadius(ballRadius);
-        ball.setFill(new ImagePattern(new Image("ball.png")));
+        private void initBall() {
+            Random random = new Random();
+            xBall = random.nextInt(sceneWidth) + 1;
+            yBall = random.nextInt(sceneHeigt - 200) + ((currentLevel + 1) * Block.getHeight()) + 15;
+            ball = new Circle();
+            ball.setRadius(ballRadius);
+            ball.setFill(new ImagePattern(new Image("ball.png")));
+
+            double ballSpeed;
+            switch (currentLevel) {
+                case 1:
+                    ballSpeed = LEVEL_EASY_BALL_SPEED;
+                    break;
+                case 2:
+                    ballSpeed = LEVEL_MEDIUM_BALL_SPEED;
+                    break;
+                case 3:
+                    ballSpeed = LEVEL_HARD_BALL_SPEED;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid level: " + currentLevel);
+            }
     }
 
     private void initBreak() {
@@ -582,7 +679,7 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
     public void restartGame() {
 
         try {
-            level = 0;
+            level = 1;
             heart = 3;
             score = 0;
             vX = 2.000;
