@@ -1,13 +1,13 @@
 .root {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color:  #EAF9D9;
 }
 
 .goldRoot {
-    -fx-background-color: #4b4a08;
+    -fx-background-color: #FFFBBD;
 }
 
 .label {
-    -fx-text-fill: #FFF;
+    -fx-text-fill: #12130F;
     -fx-label-padding: 8px;
     -fx-font-size: 15px;
 }

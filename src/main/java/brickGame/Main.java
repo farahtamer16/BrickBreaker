@@ -69,19 +69,19 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
     private ArrayList<Block> blocks = new ArrayList<Block>();
     public ArrayList<Bonus> chocos = new ArrayList<Bonus>();
     private Color[]          colors = new Color[]{
-            Color.MAGENTA,
-            Color.RED,
-            Color.GOLD,
-            Color.CORAL,
-            Color.AQUA,
-            Color.VIOLET,
+            Color.DARKGREEN,
+            Color.GREEN,
+            Color.DARKOLIVEGREEN,
+            Color.DARKSEAGREEN,
+            Color.FORESTGREEN,
+            Color.LAWNGREEN,
             Color.GREENYELLOW,
-            Color.ORANGE,
-            Color.PINK,
-            Color.SLATEGREY,
-            Color.YELLOW,
-            Color.TOMATO,
-            Color.TAN,
+            Color.SPRINGGREEN,
+            Color.LIGHTSEAGREEN,
+            Color.LIMEGREEN,
+            Color.LIGHTGREEN,
+            Color.MEDIUMSPRINGGREEN,
+            Color.DARKTURQUOISE,
     };
     public  Pane             root;
     private Label            scoreLabel;

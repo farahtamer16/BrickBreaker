@@ -24,8 +24,8 @@ public class Bonus implements Serializable {
 
     private void draw() {
         choco = new Rectangle();
-        choco.setWidth(30);
-        choco.setHeight(30);
+        choco.setWidth(60);
+        choco.setHeight(60);
         choco.setX(x);
         choco.setY(y);
 
