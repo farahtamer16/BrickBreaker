@@ -8,23 +8,24 @@ import javafx.scene.control.Label;
 //import sun.plugin2.message.Message;
 
 public class Score {
+
     public void show(final double x, final double y, int score, final Main main) {
         String sign;
+        String colorStyle;  // New variable for score colour
+
         if (score >= 0) {
             sign = "+";
+            colorStyle = "-fx-text-fill: green;";   // Set color style for positive score
         } else {
             sign = "";
+            colorStyle = "-fx-text-fill: red;";     // Set color style for negative score
         }
         final Label label = new Label(sign + score);
         label.setTranslateX(x);
         label.setTranslateY(y);
+        label.setStyle(colorStyle);  // Apply the color style
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                main.root.getChildren().add(label);
-            }
-        });
+        Platform.runLater(() -> main.root.getChildren().add(label));    //improving readability 1
 
         new Thread(new Runnable() {
             @Override
@@ -39,6 +40,10 @@ public class Score {
                         e.printStackTrace();
                     }
                 }
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {main.root.getChildren().remove(label);}
+            });
             }
         }).start();
     }
@@ -48,12 +53,8 @@ public class Score {
         label.setTranslateX(220);
         label.setTranslateY(340);
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                main.root.getChildren().add(label);
-            }
-        });
+        Platform.runLater(() -> main.root.getChildren().add(label));    //improving readability 2
+                                                                        //fix error +1
 
         new Thread(new Runnable() {
             @Override

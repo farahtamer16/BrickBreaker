@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import java.io.Serializable;
 
 public class Block implements Serializable {
-    private static Block block = new Block(-1, -1, Color.TRANSPARENT, 99);
+    public static Block block = new Block(-1, -1, Color.TRANSPARENT, 99);
 
     public int row;
     public int column;
@@ -26,7 +26,7 @@ public class Block implements Serializable {
     private int width = 100;
     private int height = 30;
     private int paddingTop = height * 2;
-    private int paddingH = 50;
+    private int paddingH = 30;
     public Rectangle rect;
 
 
@@ -45,7 +45,7 @@ public class Block implements Serializable {
     public Block(int row, int column, Color color, int type) {
         this.row = row;
         this.column = column;
-        this.color = color;
+        this.setColor(color);
         this.type = type;
 
         draw();
@@ -74,7 +74,7 @@ public class Block implements Serializable {
             ImagePattern pattern = new ImagePattern(image);
             rect.setFill(pattern);
         } else {
-            rect.setFill(color);
+            rect.setFill(getColor());
         }
 
     }
@@ -121,4 +121,11 @@ public class Block implements Serializable {
         return block.width;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }
