@@ -1,0 +1,37 @@
+.root {
+    -fx-background-color: #EAF9D9;
+}
+
+.goldRoot {
+    -fx-background-color: #FFFBBD;
+}
+
+.label {
+    -fx-text-fill: #FFF;
+    -fx-label-padding: 8px;
+    -fx-font-size: 15px;
+}
+
+#vboxy {
+    -fx-background-image: url("file:src/main/java/brickGame/images/gameBackground.png");
+    -fx-background-position: left center;
+    -fx-padding: 20; 
+}
+
+#vboxy .button {
+    -fx-effect: dropshadow(three-pass-box, pink, 30, 0.5, 0, 0);
+    -fx-pref-height: 50;
+    -fx-pref-width: 340;
+    -fx-spacing: 5;
+    -fx-font-size: 15;
+}
+
+.toggle-button {
+    -fx-graphic: url("file:src/main/java/brickGame/images/musicOn.png");
+    -fx-background-color: transparent;
+}
+
+.toggle-button:selected {
+    -fx-graphic: url("file:src/main/java/brickGame/images/musicOff.png");
+    -fx-background-color: transparent;
+}
