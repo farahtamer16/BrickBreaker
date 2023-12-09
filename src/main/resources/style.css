@@ -39,19 +39,19 @@
 }
 
 #vboxy {
-    -fx-background-image: url("file:src/main/java/brickGame/images/gameBackground.png");
+    -fx-background-image: url("/images/gameBackground.png");
     -fx-background-position: left center;
     -fx-padding: 20;
 }
 
 #vboxy2 {
-    -fx-background-image: url("file:src/main/java/brickGame/images/gameOverBackground.png");
+    -fx-background-image: url("/images/gameOverBackground.png");
     -fx-background-position: left center;
     -fx-padding: 20;
 }
 
 #vboxy3 {
-    -fx-background-image: url("file:src/main/java/brickGame/images/nextLevelBackground.png");
+    -fx-background-image: url("/images/nextLevelBackground.png");
     -fx-background-position: left center;
     -fx-padding: 20;
 }
@@ -97,11 +97,11 @@
 }
 
 .toggle-button {
-    -fx-graphic: url("file:src/main/java/brickGame/images/musicOn.png");
+    -fx-graphic: url("/images/musicOn.png");
     -fx-background-color: transparent;
 }
 
 .toggle-button:selected {
-    -fx-graphic: url("file:src/main/java/brickGame/images/musicOff.png");
+    -fx-graphic: url("/images/musicOff.png");
     -fx-background-color: transparent;
 }

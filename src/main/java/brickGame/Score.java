@@ -25,20 +25,20 @@ public class Score {
 
     public void show(final double x, final double y, int score, final Main main) {
         String sign;
-        String colorStyle;
+        String colorStyle;      // New variable for score colour
 
         if (score >= 0) {
             sign = "+";
-            colorStyle = "-fx-text-fill: green;";
+            colorStyle = "-fx-text-fill: green;";       // Set color style for positive score
         } else {
             sign = "";
-            colorStyle = "-fx-text-fill: red;";
+            colorStyle = "-fx-text-fill: red;";         // Set color style for negative score
         }
 
         final Label label = new Label(sign + score);
         label.setTranslateX(x);
         label.setTranslateY(y);
-        label.setStyle(colorStyle);
+        label.setStyle(colorStyle); // Apply the color style
 
         addToRoot(label, main);
 
@@ -97,12 +97,12 @@ public class Score {
             vbox.setAlignment(Pos.CENTER);
             vbox.setSpacing(20);
             vbox.setPadding(new Insets(20));
-            vbox.setId("gameOverVBox");
+            vbox.setId("vboxy2");
             vbox.setFillWidth(true);
 
             StackPane stackPane = new StackPane(vbox);
             stackPane.setMinSize(500, 700);
-            stackPane.setId("gameOverPane");
+            stackPane.setId("pane2");
 
             main.root.getChildren().addAll(stackPane);
         });

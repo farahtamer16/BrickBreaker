@@ -80,6 +80,8 @@ public class InitiateGame {
                     }
                 } else if (r % 10 == 3) {
                     type = Block.BLOCK_STAR;
+                } else if(r % 10 == 4) {
+                    type = Block.BLOCK_SPEED;
                 } else {
                     type = Block.BLOCK_NORMAL;
                 }

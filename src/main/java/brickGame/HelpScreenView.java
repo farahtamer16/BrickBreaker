@@ -17,7 +17,7 @@ public class HelpScreenView{
      * A string to hold the file path
      * of the image source.
      */
-    private final String imageSource= "file:src/main/java/brickGame/images/";
+    private final String imageSource= "file:src/main/resources/images/";
 
     /**
      * Creates the helpScreen that allows
