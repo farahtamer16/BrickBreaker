@@ -2,6 +2,7 @@ package brickGame;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -29,7 +30,7 @@ public class HelpScreenView{
     public Scene view(Stage stage, boolean music, Music musicObj) {
         VBox vBox = new VBox();
 
-        musicObj.playMusic(music);
+        musicObj.playMusic(music,1);
 
         BackgroundImage backgroundImage1 = new BackgroundImage(new Image(imageSource + "helpBackground.png",500,600, false, true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);

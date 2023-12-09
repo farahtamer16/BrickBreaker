@@ -27,13 +27,21 @@ public class Music {
     /**
      * Plays the background music of the game.
      */
-    public void playMusic(boolean play) {
+    public void playMusic(boolean play, int musicType) {
+        String musicFile;
         if (play) {
             if (audioClip == null) {
-                String musicFile = "src/main/java/brickGame/music/Original Tetris theme (Tetris Soundtrack).mp3";
+                if (musicType == 1) {
+                    musicFile = "src/main/java/brickGame/music/Original Tetris theme (Tetris Soundtrack).mp3";
+                } else {
+                    musicFile = "src/main/java/brickGame/music/tada-fanfare-a-6313.mp3";
+                }
                 File music = new File(musicFile);
                 audioClip = new AudioClip(music.toURI().toString());
-                audioClip.setCycleCount(AudioClip.INDEFINITE);
+
+                if (musicType == 1) {
+                    audioClip.setCycleCount(AudioClip.INDEFINITE);
+                }
             }
 
             if (!isPlaying) {

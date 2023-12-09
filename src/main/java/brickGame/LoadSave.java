@@ -1,6 +1,5 @@
 package brickGame;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,17 +7,17 @@ import java.util.ArrayList;
 
 public class LoadSave {
     public boolean          isExistHeartBlock;
-    public boolean          isGoldStauts;
+    public boolean          isGoldStatus;
     public boolean          goDownBall;
     public boolean          goRightBall;
-    public boolean          colideToBreak;
-    public boolean          colideToBreakAndMoveToRight;
-    public boolean          colideToRightWall;
-    public boolean          colideToLeftWall;
-    public boolean          colideToRightBlock;
-    public boolean          colideToBottomBlock;
-    public boolean          colideToLeftBlock;
-    public boolean          colideToTopBlock;
+    public boolean          collideToBreak;
+    public boolean          collideToBreakAndMoveToRight;
+    public boolean          collideToRightWall;
+    public boolean          collideToLeftWall;
+    public boolean          collideToRightBlock;
+    public boolean          collideToBottomBlock;
+    public boolean          collideToLeftBlock;
+    public boolean          collideToTopBlock;
     public int              level;
     public int              score;
     public int              heart;
@@ -58,17 +57,17 @@ public class LoadSave {
 
 
             isExistHeartBlock = inputStream.readBoolean();
-            isGoldStauts = inputStream.readBoolean();
+            isGoldStatus = inputStream.readBoolean();
             goDownBall = inputStream.readBoolean();
             goRightBall = inputStream.readBoolean();
-            colideToBreak = inputStream.readBoolean();
-            colideToBreakAndMoveToRight = inputStream.readBoolean();
-            colideToRightWall = inputStream.readBoolean();
-            colideToLeftWall = inputStream.readBoolean();
-            colideToRightBlock = inputStream.readBoolean();
-            colideToBottomBlock = inputStream.readBoolean();
-            colideToLeftBlock = inputStream.readBoolean();
-            colideToTopBlock = inputStream.readBoolean();
+            collideToBreak = inputStream.readBoolean();
+            collideToBreakAndMoveToRight = inputStream.readBoolean();
+            collideToRightWall = inputStream.readBoolean();
+            collideToLeftWall = inputStream.readBoolean();
+            collideToRightBlock = inputStream.readBoolean();
+            collideToBottomBlock = inputStream.readBoolean();
+            collideToLeftBlock = inputStream.readBoolean();
+            collideToTopBlock = inputStream.readBoolean();
 
 
             try {

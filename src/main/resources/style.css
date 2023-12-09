@@ -10,12 +10,50 @@
     -fx-text-fill: #FFF;
     -fx-label-padding: 8px;
     -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+#gameOverLabel {
+    -fx-text-fill: #000;
+    -fx-label-padding: 8px;
+    -fx-font-size: 70px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+#nextLevelLabel {
+    -fx-text-fill: #000;
+    -fx-label-padding: 8px;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+#currentLevelLabel {
+    -fx-text-fill: #000;
+    -fx-label-padding: 8px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 
 #vboxy {
     -fx-background-image: url("file:src/main/java/brickGame/images/gameBackground.png");
     -fx-background-position: left center;
-    -fx-padding: 20; 
+    -fx-padding: 20;
+}
+
+#vboxy2 {
+    -fx-background-image: url("file:src/main/java/brickGame/images/gameOverBackground.png");
+    -fx-background-position: left center;
+    -fx-padding: 20;
+}
+
+#vboxy3 {
+    -fx-background-image: url("file:src/main/java/brickGame/images/nextLevelBackground.png");
+    -fx-background-position: left center;
+    -fx-padding: 20;
 }
 
 #vboxy .button {
@@ -24,6 +62,38 @@
     -fx-pref-width: 340;
     -fx-spacing: 5;
     -fx-font-size: 15;
+}
+
+#vboxy2 .button {
+    -fx-effect: dropshadow(three-pass-box, pink, 30, 0.5, 0, 0);
+    -fx-pref-height: 50;
+    -fx-pref-width: 340;
+    -fx-spacing: 5;
+    -fx-font-size: 15;
+}
+
+#vboxy3 .button {
+    -fx-effect: dropshadow(three-pass-box, pink, 30, 0.5, 0, 0);
+    -fx-pref-height: 50;
+    -fx-pref-width: 340;
+    -fx-spacing: 5;
+    -fx-font-size: 15;
+}
+
+
+#vboxy .button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+    -fx-text-fill: #FFF;
+}
+
+#vboxy2 .button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+    -fx-text-fill: #FFF;
+}
+
+#vboxy3 .button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+    -fx-text-fill: #FFF;
 }
 
 .toggle-button {
