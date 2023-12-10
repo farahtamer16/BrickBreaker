@@ -1,12 +1,8 @@
 package brickGame;
 
 import java.io.File;
-
-import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 
 /**
  * Music class which is responsible for
@@ -72,19 +68,4 @@ public class Music {
     private boolean getIsMusicPlaying(){
         return isPlaying;
     }
-
-
-//    /**
-//     * Creates a music button on the screen that
-//     * allows the user to turn the music on/off.
-//     */
-//    public void musicButton(ToggleButton musicButton) {
-//        musicButton.setOnAction(event -> {
-//            if (musicButton.isSelected()) {
-//                stopMusic();
-//            } else {
-//                playMusic();
-//            }
-//        });
-//    }
 }

@@ -2,16 +2,35 @@ package brickGame;
 
 import javafx.animation.AnimationTimer;
 
+/**
+ * Represents the game engine responsible for managing game updates and time.
+ */
 public class GameEngine {
 
+    // Callback interface for defining actions in the game engine
     public OnAction onAction;
-    private int fps = 15;
+
+    // Frames per second (fps) for the game engine
+    private int fps = 25;
+
+    // Thread for managing time
     private Thread timeThread;
+
+    // Timers for game update and physics update
     private AnimationTimer updateTimer;
     private AnimationTimer physicsTimer;
+
+    // Object for synchronization
     private final Object lock = new Object();
+
+    // Flag indicating whether the game engine is stopped
     public boolean isStopped = true;
 
+    /**
+     * Sets the callback interface for defining actions in the game engine.
+     *
+     * @param onAction The callback interface.
+     */
     public void setOnAction(OnAction onAction) {
         this.onAction = onAction;
     }
@@ -19,7 +38,7 @@ public class GameEngine {
     /**
      * Set the frames per second (fps) for the game engine.
      *
-     * @param fps Frames per second
+     * @param fps Frames per second.
      */
     public void setFps(int fps) {
         this.fps = 1000 / fps;
@@ -57,12 +76,15 @@ public class GameEngine {
         }
     }
 
+    // Current time in the game
     private long time = 0;
 
+    // Initializes the game engine
     private void Initialize() {
         onAction.onInit();
     }
 
+    // Starts the update timer for game updates
     private void startUpdateTimer() {
         updateTimer = new AnimationTimer() {
             @Override
@@ -73,6 +95,7 @@ public class GameEngine {
         updateTimer.start();
     }
 
+    // Starts the physics timer for physics updates
     private void startPhysicsTimer() {
         physicsTimer = new AnimationTimer() {
             @Override
@@ -83,11 +106,13 @@ public class GameEngine {
         physicsTimer.start();
     }
 
+    // Stops the update and physics timers
     private void stopTimers() {
         updateTimer.stop();
         physicsTimer.stop();
     }
 
+    // Starts the time thread for managing game time
     private void TimeStart() {
         timeThread = new Thread(() -> {
             try {
@@ -110,12 +135,26 @@ public class GameEngine {
      * Interface for defining actions in the game engine.
      */
     public interface OnAction {
+        /**
+         * Called for game update.
+         */
         void onUpdate();
 
+        /**
+         * Called for game initialization.
+         */
         void onInit();
 
+        /**
+         * Called for physics update.
+         */
         void onPhysicsUpdate();
 
+        /**
+         * Called for updating game time.
+         *
+         * @param time The current time in the game.
+         */
         void onTime(long time);
     }
 }

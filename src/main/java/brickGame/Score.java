@@ -10,19 +10,44 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+/**
+ * The Score class manages the display of scores and game-over/win messages.
+ */
 public class Score {
 
     private static final int THREAD_SLEEP_DURATION = 15;
     private static final int ANIMATION_LIMIT = 21;
 
+    /**
+     * Adds the given label to the root of the main scene in a JavaFX application.
+     *
+     * @param label The label to be added.
+     * @param main The main application instance.
+     */
+
     private void addToRoot(Label label, Main main) {
         Platform.runLater(() -> main.root.getChildren().add(label));
     }
+
+    /**
+     * Removes the given label from the root of the main scene in a JavaFX application.
+     *
+     * @param label The label to be removed.
+     * @param main The main application instance.
+     */
 
     private void removeFromRoot(Label label, Main main) {
         Platform.runLater(() -> main.root.getChildren().remove(label));
     }
 
+    /**
+     * Displays a score animation at the specified position on the screen.
+     *
+     * @param x The x-coordinate of the score display.
+     * @param y The y-coordinate of the score display.
+     * @param score The score to be displayed.
+     * @param main The main application instance.
+     */
     public void show(final double x, final double y, int score, final Main main) {
         String sign;
         String colorStyle;      // New variable for score colour
@@ -59,6 +84,12 @@ public class Score {
         }).start();
     }
 
+    /**
+     * Displays a message with animation on the screen.
+     *
+     * @param message The message to be displayed.
+     * @param main The main application instance.
+     */
     public void showMessage(String message, final Main main) {
         final Label label = new Label(message);
         label.setTranslateX(220);
@@ -81,6 +112,11 @@ public class Score {
         }).start();
     }
 
+    /**
+     * Displays the game-over message with restart and exit buttons.
+     *
+     * @param main The main application instance.
+     */
     public void showGameOver(final Main main) {
         Platform.runLater(() -> {
             Label label = new Label("Game Over");
@@ -97,7 +133,7 @@ public class Score {
             vbox.setAlignment(Pos.CENTER);
             vbox.setSpacing(20);
             vbox.setPadding(new Insets(20));
-            vbox.setId("vboxy2");
+            vbox.setId("GameOverBox");
             vbox.setFillWidth(true);
 
             StackPane stackPane = new StackPane(vbox);
@@ -108,6 +144,11 @@ public class Score {
         });
     }
 
+    /**
+     * Displays the win message.
+     *
+     * @param main The main application instance.
+     */
     public void showWin(final Main main) {
         Platform.runLater(() -> {
             Label label = new Label("You Win :)");
