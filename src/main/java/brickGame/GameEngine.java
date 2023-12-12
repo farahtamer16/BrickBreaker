@@ -4,6 +4,12 @@ import javafx.animation.AnimationTimer;
 
 /**
  * Represents the game engine responsible for managing game updates and time.
+ * The GameEngine class provides functionality for starting, stopping, and
+ * managing the game loop, as well as handling game initialization, updates,
+ * physics updates and time updates.
+ * <p>
+ * Uses JavaFX's AnimationTimer for efficiency and proper integration with the JavaFX framework instead of
+ * traditional thread handling mechanisms used in the source code.
  */
 public class GameEngine {
 
@@ -46,6 +52,8 @@ public class GameEngine {
 
     /**
      * Starts the game engine.
+     * Initializes game components and starts the update and physics timers using AnimationTimer,
+     * instead of the sleep mechanisms used in the source code.
      */
     public void start() {
         time = 0;
@@ -66,7 +74,8 @@ public class GameEngine {
     }
 
     /**
-     * Stops the game engine.
+     * Stops the game engine by interrupting threads gracefully using AnimationTimer's stop method instead of directly
+     * like in the source code.
      */
     public void stop() {
         if (!isStopped) {

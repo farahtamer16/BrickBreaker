@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 /**
  * Represents a block in the brick game.
+ * Blocks are elements in the game grid that can be hit by the ball.
+ * Each block has a specific color and type, and it can be destroyed under certain conditions.
  */
 public class Block implements Serializable {
     // Represents an empty block
@@ -31,6 +33,10 @@ public class Block implements Serializable {
     private final int width = 100;
     private final int height = 30;
     private final int paddingTop = height * 2;
+
+    /**
+     * Variable paddingH was modified from the source code to equal 30 instead of 50.
+     */
     private final int paddingH = 30;
     public Rectangle rect;
 
@@ -46,6 +52,10 @@ public class Block implements Serializable {
     public static int BLOCK_CHOCO = 100;
     public static int BLOCK_STAR = 101;
     public static int BLOCK_HEART = 102;
+
+    /**
+     * Instantiates two new blocks that were not in the original source code
+     */
     public static final int BLOCK_SPEED = 103;
     public static final int BLOCK_SPLITTER = 104;
 
@@ -91,6 +101,7 @@ public class Block implements Serializable {
             Image image = new Image("star.jpg");
             ImagePattern pattern = new ImagePattern(image);
             rect.setFill(pattern);
+            // Sets two new blocks
         } else if (type == BLOCK_SPEED) {
             Image image = new Image("speed.jpg");
             ImagePattern pattern = new ImagePattern(image);
@@ -106,9 +117,12 @@ public class Block implements Serializable {
 
     /**
      * Checks if the ball hits the block and returns the hit direction.
+     * Uses geometric calculations and considers the radius of the ball for more accurate collision detection.
+     * This is more precise than the simple conditional statements in the source code.
      *
      * @param xBall The x-coordinate of the ball.
      * @param yBall The y-coordinate of the ball.
+     * @param ballRadius The radius of the ball.
      * @return The hit direction (NO_HIT, HIT_RIGHT, HIT_BOTTOM, HIT_LEFT, HIT_TOP).
      */
     public int checkHitToBlock(double xBall, double yBall, int ballRadius) {

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * Represents a serializable version of a block in the brick game.
+ * This class is used to serialize and deserialize block information, allowing for
+ * the storage and retrieval of block data in a serializable format.
  */
 public class BlockSerializable implements Serializable {
     // The row position of the block

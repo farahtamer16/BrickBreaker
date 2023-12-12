@@ -15,7 +15,9 @@ import javafx.geometry.Pos;
  */
 public class Score {
 
+    // The duration (in milliseconds) for which the animation thread sleeps between each movement.
     private static final int THREAD_SLEEP_DURATION = 15;
+    // The limit for the number of iterations in the animation loop.
     private static final int ANIMATION_LIMIT = 21;
 
     /**
@@ -42,7 +44,10 @@ public class Score {
 
     /**
      * Displays a score animation at the specified position on the screen.
-     *
+     * <p>
+     * Translation (setTranslateX and setTranslateY) for the restart button in the showGameOver is set, as opposed to,
+     * the source code.
+     * <p>
      * @param x The x-coordinate of the score display.
      * @param y The y-coordinate of the score display.
      * @param score The score to be displayed.
@@ -114,7 +119,9 @@ public class Score {
 
     /**
      * Displays the game-over message with restart and exit buttons.
-     *
+     *<p>
+     *     This method has css styling for labels, which is not in the source code
+     *     <p>
      * @param main The main application instance.
      */
     public void showGameOver(final Main main) {

@@ -9,6 +9,8 @@ import java.util.Random;
 
 /**
  * Represents a bonus object in the brick game.
+ * This class is used to create and manage bonus objects that provide additional features or points when collected
+ * by the player
  */
 public class Bonus implements Serializable {
     // The rectangle representing the bonus

@@ -6,7 +6,7 @@ import javafx.scene.media.AudioClip;
 
 /**
  * Music class which is responsible for
- * playing the music in the game.
+ * playing the music in the game. This is a new class.
  */
 public class Music {
     /**
