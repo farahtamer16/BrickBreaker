@@ -11,8 +11,17 @@ import javafx.stage.Stage;
  * Creates the help screen through which the user
  * can get an idea of how to play the game.
  * This is a new class that was not in the source code and also acts as the main menu.
+ *  @see <a href="https://github.com/kooitt/CourseworkGame/tree/master/src/main/java/brickGame">brickGame package on GitHub</a>
  */
 public class HelpScreenView{
+
+    /**
+     * Default constructor for the HelpScreenView class.
+     * This constructor is used to create an instance of the HelpScreenView class.
+     */
+    public HelpScreenView() {
+    }
+
     /**
      * A string to hold the file path
      * of the image source.

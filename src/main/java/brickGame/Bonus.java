@@ -11,21 +11,32 @@ import java.util.Random;
  * Represents a bonus object in the brick game.
  * This class is used to create and manage bonus objects that provide additional features or points when collected
  * by the player
+ * @see <a href="https://github.com/kooitt/CourseworkGame/blob/master/src/main/java/brickGame/Bonus.java">Bonus.java on GitHub</a>
  */
 public class Bonus implements Serializable {
-    // The rectangle representing the bonus
+    /**
+     * The rectangle representing the bonus.
+     */
     public Rectangle choco;
 
-    // The x-coordinate of the bonus
+    /**
+     * The x-coordinate of the bonus.
+     */
     public double x;
 
-    // The y-coordinate of the bonus
+    /**
+     * The y-coordinate of the bonus.
+     */
     public double y;
 
-    // The time when the bonus was created
+    /**
+     * The time when the bonus was created.
+     */
     public long timeCreated;
 
-    // Indicates if the bonus has been taken by the player
+    /**
+     * Indicates if the bonus has been taken by the player.
+     */
     public boolean taken = false;
 
     /**

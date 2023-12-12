@@ -14,8 +14,16 @@ import java.util.logging.Logger;
  * Handles the initialization of game elements such as the ball, bricks, and game board.
  * This is a new class that is modified from the main class of the source code.
  * It contains the Init functions from the source code refactored and encapsulated in one class.
+ * @see <a href="https://github.com/kooitt/CourseworkGame/blob/master/src/main/java/brickGame/Main.java">Main.java on GitHub</a>
  */
 public class InitiateGame {
+
+    /**
+     * Default constructor for the InitiateGame class.
+     * This constructor is used to create an instance of the InitiateGame class.
+     */
+    public InitiateGame() {
+    }
 
     private static final Logger LOGGER = Logger.getLogger(InitiateGame.class.getName());     // Logger for logging messages and exceptions
     private final Object lock = new Object(); // Private field for synchronization

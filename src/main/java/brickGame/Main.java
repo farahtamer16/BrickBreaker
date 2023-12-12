@@ -36,57 +36,178 @@ import javafx.util.Duration;
 /**
  * The Main class represents the main entry point for the Brick Breaker game and contains the main methods used
  * in controlling the game.
- * It extends the Application class and implements EventHandler<KeyEvent> and GameEngine.OnAction interfaces.
+ * It extends the Application class and implements GameEngine.OnAction interfaces.
+ * @see <a href="https://github.com/kooitt/CourseworkGame/blob/master/src/main/java/brickGame/Main.java">Main.java on GitHub</a>
  */
 public class Main extends Application implements EventHandler<KeyEvent>, GameEngine.OnAction {
 
+    /**
+     * Default constructor for the Main class.
+     * This constructor is used to create an instance of the Main class.
+     */
+    public Main() {
+    }
+
+    /**
+     * Current level of the game.
+     */
     private int level = 0;
 
+    /**
+     * X-coordinate of the breaker paddle.
+     */
     private double xBreak = 0.0f;
-    private double centerBreakX;
-    private double yBreak = 640.0f;
 
-    private final int breakWidth     = 130;
-    private final int breakHeight    = 30;
+    /**
+     * Center X-coordinate of the breaker paddle.
+     */
+    private double centerBreakX;
+
+    /**
+     * Y-coordinate of the breaker paddle.
+     */
+    private double yBreak = 640.0f;
+    /**
+     * Width of the breaker paddle.
+     */
+    private final int breakWidth = 130;
+
+    /**
+     * Height of the breaker paddle.
+     */
+    private final int breakHeight = 30;
+
+    /**
+     * Half of the width of the breaker paddle.
+     */
     private final int halfBreakWidth = breakWidth / 2;
 
+    /**
+     * Width of the game scene.
+     */
     private final int sceneWidth = 500;
+    /**
+     * Height of the game scene.
+     */
     private final int sceneHeight = 700;
 
+    /**
+     * Constant representing left direction.
+     */
     private static final int LEFT  = 1;
+    /**
+     * Constant representing right direction.
+     */
     private static final int RIGHT = 2;
 
+    /**
+     * Circle representing the game ball.
+     */
     private Circle ball;
+    /**
+     * X-coordinate of the game ball.
+     */
     private double xBall;
+
+    /**
+     * Y-coordinate of the game ball.
+     */
     private double yBall;
+
+    /**
+     * Flag indicating whether the splitter ball should move down.
+     */
     private boolean goDownSplitterBall = true;
+
+    /**
+     * Flag indicating whether the splitter ball should move right.
+     */
     private boolean goRightSplitterBall = true;
 
+    /**
+     * Flag indicating whether the gold status is active.
+     */
     private boolean isGoldStatus = false;
+
+    /**
+     * Flag indicating whether a heart block exists.
+     */
     private boolean isExistHeartBlock = false;
 
+    /**
+     * Rectangle representing the game ball.
+     */
     private Rectangle rect;
+
+    /**
+     * Radius of the game ball.
+     */
     private final int ballRadius = 10;
 
+    /**
+     * Number of destroyed blocks.
+     */
     private int destroyedBlockCount = 0;
 
+    /**
+     * Velocity of the game ball.
+     */
     private double v = 1.000;
 
-    private int  heart    = 3;
-    private int  score    = 0;
-    private long time     = 0;
-    private long hitTime  = 0;
+    /**
+     * Number of heart lives.
+     */
+    private int heart = 3;
+
+    /**
+     * Current score in the game.
+     */
+    private int score = 0;
+    /**
+     * Current time in the game.
+     */
+    private long time = 0;
+
+    /**
+     * Time when the last block was hit.
+     */
+    private long hitTime = 0;
+
+    /**
+     * Time when gold status was activated.
+     */
     private long goldTime = 0;
+
+    /**
+     * Lock object for managing chocos.
+     */
     private final Object chocosLock = new Object();
 
+    /**
+     * Game engine responsible for game actions.
+     */
     private GameEngine engine;
+    /**
+     * File path for saving game data: "D:/save/save.mdds".
+     */
     public static String savePath    = "D:/save/save.mdds";
+    /**
+     * Directory path for saving game data: "D:/save/".
+     */
     public static String savePathDir = "D:/save/";
-
+    /**
+     * List of blocks in the game.
+     */
     private final ArrayList<Block> blocks = new ArrayList<>();
+
+    /**
+     * List of bonus chocos in the game.
+     */
     public ArrayList<Bonus> chocos = new ArrayList<>();
 
-    // Color scheme is modified from the original source code.
+    /**
+     * Color scheme for the blocks.
+     */
     private final Color[] colors = new Color[]{
             Color.DARKGREEN,
             Color.GREEN,
@@ -102,24 +223,86 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
             Color.MEDIUMSPRINGGREEN,
             Color.DARKTURQUOISE,
     };
-    public  Pane             root;
-    private Label            scoreLabel;
-    private Label            heartLabel;
-    private Label            levelLabel;
+    /**
+     * Root pane of the game.
+     */
+    public  Pane root;
 
+    /**
+     * Label displaying the current score.
+     */
+    private Label scoreLabel;
+
+    /**
+     * Label displaying the current number of heart lives.
+     */
+    private Label heartLabel;
+
+    /**
+     * Label displaying the current level.
+     */
+    private Label levelLabel;
+
+    /**
+     * Flag indicating whether to load the game state from a saved file.
+     */
     private boolean loadFromSave = false;
+    /**
+     * Music object responsible for playing background music.
+     */
     private Music music;
+    /**
+     * Music object responsible for playing a different background music.
+     */
     private Music music2;
+    /**
+     * Primary stage of the JavaFX application.
+     */
+    Stage primaryStage;
 
-    Stage  primaryStage;
-    Button load    = null;
+    /**
+     * Button to load a saved game.
+     */
+    Button load = null;
+
+    /**
+     * Button to start a new game.
+     */
     Button newGameButton = null;
+
+    /**
+     * Button to display the help screen.
+     */
     Button helpScreen = null;
+
+    /**
+     * Button to exit the game.
+     */
     Button exitGame = null;
+
+    /**
+     * Vertical box containing buttons.
+     */
     VBox vbox = null;
+
+    /**
+     * Toggle button to control music playback.
+     */
     ToggleButton musicButton = new ToggleButton();
+
+    /**
+     * Flag indicating the state of background music (playing or paused).
+     */
     private boolean musicState = true;
+
+    /**
+     * Flag indicating whether the speed boost is active.
+     */
     private boolean isSpeedBoostActive = false;
+
+    /**
+     * Time when the speed boost started.
+     */
     private long speedBoostStartTime;
 
     /**
@@ -854,16 +1037,6 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
      * and buttons visible and starts the game.
      * </p>
      *
-     * @throws Exception If an error occurs during the restart process.
-     *                  <p>
-     *                  Example Usage:
-     *                  </p>
-     *                  <pre>
-     *                  {@code
-     *                  // Restart the game to its initial state
-     *                  restartGame();
-     *                  }
-     *                  </pre>
      */
     public void restartGame() {
 

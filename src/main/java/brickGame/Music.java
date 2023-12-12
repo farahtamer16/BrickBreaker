@@ -15,6 +15,13 @@ public class Music {
     private AudioClip audioClip = null;
 
     /**
+     * Default constructor for the Music class.
+     * This constructor is used to create an instance of the Music class.
+     */
+    public Music() {
+    }
+
+    /**
      * Boolean variable to indicate whether music
      * playing music or not.
      */
@@ -22,6 +29,10 @@ public class Music {
 
     /**
      * Plays the background music of the game.
+     *
+     * @param play      If true, starts playing the music; if false, stops the music.
+     * @param musicType The type of music to be played. Use 1 for the original Tetris theme and any other number for the sound effect.
+     * @see <a href="https://github.com/kooitt/CourseworkGame/tree/master/src/main/java/brickGame">brickGame package on GitHub</a>
      */
     public void playMusic(boolean play, int musicType) {
         String musicFile;

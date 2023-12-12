@@ -10,10 +10,20 @@ import javafx.animation.AnimationTimer;
  * <p>
  * Uses JavaFX's AnimationTimer for efficiency and proper integration with the JavaFX framework instead of
  * traditional thread handling mechanisms used in the source code.
+ * @see <a href="https://github.com/kooitt/CourseworkGame/blob/master/src/main/java/brickGame/GameEngine.java">GameEngine.java on GitHub</a>
  */
 public class GameEngine {
 
-    // Callback interface for defining actions in the game engine
+    /**
+     * Default constructor for the GameEngine class.
+     * This constructor is used to create an instance of the GameEngine class.
+     */
+    public GameEngine() {
+    }
+
+    /**
+     * Interface defining actions to be implemented in the game engine.
+     */
     public OnAction onAction;
 
     // Frames per second (fps) for the game engine
@@ -29,7 +39,9 @@ public class GameEngine {
     // Object for synchronization
     private final Object lock = new Object();
 
-    // Flag indicating whether the game engine is stopped
+    /**
+     * Flag indicating whether the game engine is stopped.
+     */
     public boolean isStopped = true;
 
     /**

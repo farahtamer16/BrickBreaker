@@ -11,52 +11,114 @@ import java.io.Serializable;
  * Represents a block in the brick game.
  * Blocks are elements in the game grid that can be hit by the ball.
  * Each block has a specific color and type, and it can be destroyed under certain conditions.
+ *
+ * @see <a href="https://github.com/kooitt/CourseworkGame/blob/master/src/main/java/brickGame/Block.java">Block.java on GitHub</a>
+ *
  */
 public class Block implements Serializable {
-    // Represents an empty block
-    public static Block block = new Block(-1, -1, Color.TRANSPARENT, 99);
-
-    // Position of the block in the game grid
-    public int row;
-    public int column;
-
-    // Indicates if the block is destroyed
-    public boolean isDestroyed = false;
-
-    // Color and type of the block
-    private Color color;
-    public int type;
-
-    // Coordinates and dimensions of the block
-    public int x;
-    public int y;
-    private final int width = 100;
-    private final int height = 30;
-    private final int paddingTop = height * 2;
 
     /**
+     * Represents an empty block
+     */
+    public static Block block = new Block(-1, -1, Color.TRANSPARENT, 99);
+
+    /**
+     * The row position of the block in the game grid.
+     */
+    public int row;
+    /**
+     * The column position of the block in the game grid.
+     */
+    public int column;
+    /**
+     * Indicates if the block is destroyed.
+     */
+    public boolean isDestroyed = false;
+    /**
+     * The color of the block.
+     */
+    private Color color;
+    /**
+     * The type of the block.
+     */
+    public int type;
+    /**
+     * The x-coordinate of the block.
+     */
+    public int x;
+    /**
+     * The y-coordinate of the block.
+     */
+    public int y;
+    /**
+     * Width of the block in pixels.
+     */
+    private final int width = 100;
+    /**
+     * Height of the block in pixels.
+     */
+    private final int height = 30;
+    /**
+     * The padding at the top of the block.
+     */
+    private final int paddingTop = height * 2;
+    /**
+     * The horizontal padding of the block.
      * Variable paddingH was modified from the source code to equal 30 instead of 50.
      */
     private final int paddingH = 30;
+    /**
+     * The rectangle representing the block.
+     */
     public Rectangle rect;
 
-    // Constants representing different hit directions
-    public static int NO_HIT = -1;
-    public static int HIT_RIGHT = 0;
-    public static int HIT_BOTTOM = 1;
-    public static int HIT_LEFT = 2;
-    public static int HIT_TOP = 3;
-
-    // Constants representing different block types
-    public static int BLOCK_NORMAL = 99;
-    public static int BLOCK_CHOCO = 100;
-    public static int BLOCK_STAR = 101;
-    public static int BLOCK_HEART = 102;
+    //Constants representing different hit directions.
 
     /**
-     * Instantiates two new blocks that were not in the original source code
+     * Represents no hit.
+     */
+    public static int NO_HIT = -1;
+    /**
+     * Represents a hit to the right direction.
+     */
+    public static int HIT_RIGHT = 0;
+    /**
+     * Represents a hit to the bottom direction.
+     */
+    public static int HIT_BOTTOM = 1;
+    /**
+     * Represents a hit to the left direction.
+     */
+    public static int HIT_LEFT = 2;
+    /**
+     * Represents a hit to the top direction.
+     */
+    public static int HIT_TOP = 3;
+
+    //Constants representing different block types.
+    /**
+     * Represents a normal block type.
+     */
+    public static int BLOCK_NORMAL = 99;
+    /**
+     * Represents a chocolate block type.
+     */
+    public static int BLOCK_CHOCO = 100;
+    /**
+     * Represents a star block type.
+     */
+    public static int BLOCK_STAR = 101;
+    /**
+     * Represents a heart block type.
+     */
+    public static int BLOCK_HEART = 102;
+    /**
+     * Instantiates a new block type representing speed.
      */
     public static final int BLOCK_SPEED = 103;
+    /**
+     * Instantiates a new block type representing a splitter.
+     */
     public static final int BLOCK_SPLITTER = 104;
 
     /**
