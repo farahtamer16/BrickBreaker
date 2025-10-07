@@ -51,17 +51,19 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
 
     private int destroyedBlockCount = 0;
 
+    @SuppressWarnings("unused")
     private double v = 1.000;
 
     private int  heart    = 3;
     private int  score    = 0;
     private long time     = 0;
-    private long hitTime  = 0;
+    @SuppressWarnings("unused")
+    private long hitTime = 0;
     private long goldTime = 0;
 
     private GameEngine engine;
-    public static String savePath    = "D:/save/save.mdds";
-    public static String savePathDir = "D:/save/";
+    public static String savePath    = System.getProperty("user.home") + "/brickgame/save.mdds";
+    public static String savePathDir = System.getProperty("user.home") + "/brickgame/";
 
     private ArrayList<Block> blocks = new ArrayList<Block>();
     private ArrayList<Bonus> chocos = new ArrayList<Bonus>();
@@ -135,7 +137,9 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
             root.getChildren().add(block.rect);
         }
         Scene scene = new Scene(root, sceneWidth, sceneHeigt);
-        scene.getStylesheets().add("style.css");
+        scene.getStylesheets().add(
+            Main.class.getResource("/style.css").toExternalForm()
+        ); 
         scene.setOnKeyPressed(this);
 
         primaryStage.setTitle("Game");
@@ -225,14 +229,17 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
                 move(LEFT);
                 break;
             case RIGHT:
-
                 move(RIGHT);
                 break;
             case DOWN:
-                //setPhysicsToBall();
+                // setPhysicsToBall();
                 break;
             case S:
                 saveGame();
+                break;
+
+            // 👇 Adding default silences the “enum constant needs a case label” noise
+            default:
                 break;
         }
     }
@@ -279,7 +286,9 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
         yBall = random.nextInt(sceneHeigt - 200) + ((level + 1) * Block.getHeight()) + 15;
         ball = new Circle();
         ball.setRadius(ballRadius);
-        ball.setFill(new ImagePattern(new Image("ball.png")));
+        ball.setFill(new ImagePattern(
+            new Image(Main.class.getResource("/ball.png").toExternalForm())
+        ));    
     }
 
     private void initBreak() {
@@ -289,7 +298,9 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
         rect.setX(xBreak);
         rect.setY(yBreak);
 
-        ImagePattern pattern = new ImagePattern(new Image("block.jpg"));
+        ImagePattern pattern = new ImagePattern(
+            new Image(Main.class.getResource("/block.jpg").toExternalForm())
+        );
 
         rect.setFill(pattern);
     }
@@ -452,73 +463,58 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
     }
 
     private void saveGame() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new File(savePathDir).mkdirs();
-                File file = new File(savePath);
-                ObjectOutputStream outputStream = null;
-                try {
-                    outputStream = new ObjectOutputStream(new FileOutputStream(file));
+        new Thread(() -> {
+            new File(savePathDir).mkdirs();
+            File file = new File(savePath);
 
-                    outputStream.writeInt(level);
-                    outputStream.writeInt(score);
-                    outputStream.writeInt(heart);
-                    outputStream.writeInt(destroyedBlockCount);
+            try (ObjectOutputStream outputStream =
+                        new ObjectOutputStream(new FileOutputStream(file))) {
 
+                outputStream.writeInt(level);
+                outputStream.writeInt(score);
+                outputStream.writeInt(heart);
+                outputStream.writeInt(destroyedBlockCount);
 
-                    outputStream.writeDouble(xBall);
-                    outputStream.writeDouble(yBall);
-                    outputStream.writeDouble(xBreak);
-                    outputStream.writeDouble(yBreak);
-                    outputStream.writeDouble(centerBreakX);
-                    outputStream.writeLong(time);
-                    outputStream.writeLong(goldTime);
-                    outputStream.writeDouble(vX);
+                outputStream.writeDouble(xBall);
+                outputStream.writeDouble(yBall);
+                outputStream.writeDouble(xBreak);
+                outputStream.writeDouble(yBreak);
+                outputStream.writeDouble(centerBreakX);
+                outputStream.writeLong(time);
+                outputStream.writeLong(goldTime);
+                outputStream.writeDouble(vX);
 
+                outputStream.writeBoolean(isExistHeartBlock);
+                outputStream.writeBoolean(isGoldStauts);
+                outputStream.writeBoolean(goDownBall);
+                outputStream.writeBoolean(goRightBall);
+                outputStream.writeBoolean(colideToBreak);
+                outputStream.writeBoolean(colideToBreakAndMoveToRight);
+                outputStream.writeBoolean(colideToRightWall);
+                outputStream.writeBoolean(colideToLeftWall);
+                outputStream.writeBoolean(colideToRightBlock);
+                outputStream.writeBoolean(colideToBottomBlock);
+                outputStream.writeBoolean(colideToLeftBlock);
+                outputStream.writeBoolean(colideToTopBlock);
 
-                    outputStream.writeBoolean(isExistHeartBlock);
-                    outputStream.writeBoolean(isGoldStauts);
-                    outputStream.writeBoolean(goDownBall);
-                    outputStream.writeBoolean(goRightBall);
-                    outputStream.writeBoolean(colideToBreak);
-                    outputStream.writeBoolean(colideToBreakAndMoveToRight);
-                    outputStream.writeBoolean(colideToRightWall);
-                    outputStream.writeBoolean(colideToLeftWall);
-                    outputStream.writeBoolean(colideToRightBlock);
-                    outputStream.writeBoolean(colideToBottomBlock);
-                    outputStream.writeBoolean(colideToLeftBlock);
-                    outputStream.writeBoolean(colideToTopBlock);
-
-                    ArrayList<BlockSerializable> blockSerializables = new ArrayList<BlockSerializable>();
-                    for (Block block : blocks) {
-                        if (block.isDestroyed) {
-                            continue;
-                        }
+                ArrayList<BlockSerializable> blockSerializables = new ArrayList<>();
+                for (Block block : blocks) {
+                    if (!block.isDestroyed) {
                         blockSerializables.add(new BlockSerializable(block.row, block.column, block.type));
                     }
-
-                    outputStream.writeObject(blockSerializables);
-
-                    new Score().showMessage("Game Saved", Main.this);
-
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        outputStream.flush();
-                        outputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
+                outputStream.writeObject(blockSerializables);
+
+                new Score().showMessage("Game Saved", Main.this);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }).start();
-
     }
+
 
     private void loadGame() {
 
@@ -678,7 +674,9 @@ public class Main extends Application implements EventHandler<KeyEvent>, GameEng
 
                     if (block.type == Block.BLOCK_STAR) {
                         goldTime = time;
-                        ball.setFill(new ImagePattern(new Image("goldball.png")));
+                        ball.setFill(new ImagePattern(
+                            new Image(Main.class.getResource("/goldball.png").toExternalForm())
+                        ));
                         System.out.println("gold ball");
                         root.getStyleClass().add("goldRoot");
                         isGoldStauts = true;
