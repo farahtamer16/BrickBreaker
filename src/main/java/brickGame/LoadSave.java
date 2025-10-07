@@ -31,21 +31,22 @@ public class LoadSave {
     public long             time;
     public long             goldTime;
     public double           vX;
-    public ArrayList<BlockSerializable> blocks = new ArrayList<BlockSerializable>();
-
+    public ArrayList<BlockSerializable> blocks = new ArrayList<>();
 
     public void read() {
+        File file = new File(Main.savePath);
+        if (!file.exists()) {
+            // No save file yet — nothing to load
+            return;
+        }
 
-
-        try {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(new File(Main.savePath)));
-
+        try (ObjectInputStream inputStream =
+                     new ObjectInputStream(new FileInputStream(file))) {
 
             level = inputStream.readInt();
             score = inputStream.readInt();
             heart = inputStream.readInt();
             destroyedBlockCount = inputStream.readInt();
-
 
             xBall = inputStream.readDouble();
             yBall = inputStream.readDouble();
@@ -55,7 +56,6 @@ public class LoadSave {
             time = inputStream.readLong();
             goldTime = inputStream.readLong();
             vX = inputStream.readDouble();
-
 
             isExistHeartBlock = inputStream.readBoolean();
             isGoldStauts = inputStream.readBoolean();
@@ -70,16 +70,18 @@ public class LoadSave {
             colideToLeftBlock = inputStream.readBoolean();
             colideToTopBlock = inputStream.readBoolean();
 
+            @SuppressWarnings("unchecked")
+            ArrayList<BlockSerializable> loaded =
+                    (ArrayList<BlockSerializable>) inputStream.readObject();
 
-            try {
-                blocks = (ArrayList<BlockSerializable>) inputStream.readObject();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            // replace current list contents with loaded ones
+            blocks.clear();
+            if (loaded != null) {
+                blocks.addAll(loaded);
             }
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
